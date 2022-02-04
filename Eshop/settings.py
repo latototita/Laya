@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-
+import dj_database_url
 import os
 
 
@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*','https://pearlmarto.herokuapp.com','localhost']
 
 INSTALLED_APPS = [
     'admin_interface',
+    'whitenoise.runserver_nostatic',
     'colorfield',
     'django.contrib.admin',
     'crispy_forms',
@@ -87,7 +88,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -148,3 +150,7 @@ EMAIL_PORT=587
 EMAIL_USE_TLS=True
 EMAIL_HOST_USER='timema04@gmail.com'
 EMAIL_HOST_PASSWORD='last calls'
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
