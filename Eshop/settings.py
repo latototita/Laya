@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['*','https://pearlmarto.herokuapp.com','localhost']
 
 INSTALLED_APPS = [
     'admin_interface',
-    'django-environ',
     'whitenoise.runserver_nostatic',
     'colorfield',
     'django.contrib.admin',
