@@ -1,5 +1,6 @@
 asgiref==3.4.1
 autopep8==1.4.4
+django-environ
 backports.zoneinfo==0.2.1
 certifi==2019.3.9
 chardet==3.0.4
