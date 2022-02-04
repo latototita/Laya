@@ -21,14 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^_g%33qd(g8bjc+*40&uh(ptgkb$&-*+0!i3$lu7xj1u166cbb'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'u4dmr-4j6pb92jjv=phmvus%4*ld#jh06xa&fv)+$w$^_a8gu5')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
-
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
 ALLOWED_HOSTS = ['*','https://pearlmarto.herokuapp.com','localhost']
 
 
@@ -152,6 +148,6 @@ EMAIL_USE_TLS=True
 EMAIL_HOST_USER='timema04@gmail.com'
 EMAIL_HOST_PASSWORD='last calls'
 SECRET_KEY = env('SECRET_KEY')
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD=env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 
