@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 import dj_database_url
 import os
-
+import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +24,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^_g%33qd(g8bjc+*40&uh(ptgkb$&-*+0!i3$lu7xj1u166cbb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 ALLOWED_HOSTS = ['*','https://pearlmarto.herokuapp.com','localhost']
 
@@ -81,13 +84,11 @@ WSGI_APPLICATION = 'Eshop.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    # read os.environ['DATABASE_URL'] and raises ImproperlyConfigured exception if not found
+    'default': env.db(),
 }
+
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
@@ -150,7 +151,7 @@ EMAIL_PORT=587
 EMAIL_USE_TLS=True
 EMAIL_HOST_USER='timema04@gmail.com'
 EMAIL_HOST_PASSWORD='last calls'
-export SECRET_KEY
-export EMAIL_HOST_USER
-export EMAIL_HOST_PASSWORD
+SECRET_KEY = env('SECRET_KEY')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD=env('EMAIL_HOST_PASSWORD')
 
